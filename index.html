@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pomodomo Timer</title>
+	<link rel="stylesheet" type="text/css" href="css/practice.css">
+</head>
+<body>
+
+<!-- CONTAINER SECTION -->
+<section class = "container">
+  <!-- TITLE -->
+  <h1>Pomodomo Timer</h1>
+    <p id="title-subtext">Stay on Task!</p>
+  <!-- DURATION BUTTONS DIV -->
+  <div class="duration-buttons">
+    <!-- SESSION LENGTH DIV -->
+    <div class="duration session">
+      <div class="title t1">
+        Session
+      </div>
+      
+      <!-- ROW 1 -->
+      <div class="row">
+        <!-- MINUS BUTTON -->
+        <div class="minus-button" onclick="minusTime('sMinus')">
+          -
+        </div>
+        <!-- DURATION INPUT -->
+        <div class="duration-input numbers" id="d1"></div>
+        <!-- PLUS BUTTON -->
+        <div class="plus-button" onclick="addTime('sPlus')">
+          +
+        </div>
+      </div><!-- ROW 1 END -->
+    </div><!-- SESSION DIV END -->
+    
+    <!-- BREAK LENGTH DIV -->
+    <div class="duration break">
+      <div class="title t2">
+        Break
+      </div>
+      
+      <div class="row">
+        <!-- MINUS BUTTON -->
+        <div class="minus-button" onclick="minusTime('dMinus')">
+          -
+        </div>
+        <!-- DURATION INPUT -->
+        <div class="duration-input numbers" id="d2">
+          
+        </div>
+        <!-- PLUS BUTTON -->
+        <div class="plus-button" onclick="addTime('dPlus')">
+          +
+        </div>
+      </div><!-- ROW DIV END -->
+    </div><!-- BREAK DIV END -->
+    
+  </div><!-- DURATION-BUTTONS DIV -->
+  
+    <div class="clear"></div>
+  
+    <!-- FALCONS LOGO DIV -->
+    <div class="falcons-logo">
+      <img src="http://d29m18w01sxjzp.cloudfront.net/sports/nfl/logo/ATL_Falcons-logo.png" alt="falcons logo" id="falcons-img" />
+    </div><!-- FALCONS LOGO DIV END -->
+  
+  <!-- TIMER DIV -->
+  <div id="timer" class="numbers"></div>
+  
+  <!-- CONTROL BUTTONS DIV -->
+  <div class="control-buttons">
+    <div class="start" onclick="start()">Start</div>
+    <div class="pause">Pause</div>
+    <div class="stop">Stop</div>
+  </div>
+  
+</section><!-- CONTAINER SECTION END -->
+
+
+<script type="text/javascript" src="scripts/scripts.js"></script>
+</body>
+</html>
