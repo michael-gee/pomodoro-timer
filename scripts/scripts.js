@@ -1,154 +1,128 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway');
-
-@import url('https://fonts.googleapis.com/css?family=Orbitron');
-
- /* BODY */
-body {
-  background-color: black;
-  margin: 0;
-  font-family: "Raleway", arial, serif;
-}
-
-.numbers {
-  font-family: "Orbitron", arial, serif;
-}
-
-/* CONTAINER DIV */
-.container {
-  height: 460px;
-  width: 320px;
-  background-color: white;
-  margin: 50px auto;
-  border-radius: 10px;
-}
-
-h1 {
-  text-align: center;
-  padding-top: 10px;
-  margin: 0;
-  font-size: 1.7em;
-}
-
-#title-subtext {
-  margin: 0;
-  margin-bottom: 10px;
-  text-align:center;
-  font-size: 1.5em;
-}
-
-/* DURATION DIVS */
-.duration-buttons {
-  overflow: hidden;
-  margin-left: 10%;
-}
-
-.duration {
-  width: 45%;
-  float: left;
-  text-align: center;
-
-}
-
-.row {
-  overflow: hidden;
-  padding-left: 19px;
-  margin-top: 5px;
-}
-
-.minus-button, .duration-input, .plus-button {
-  float: left;
-}
-
-.minus-button, .plus-button {
-  padding: 4px 8px;
-  color: white;
-  font-weight: bold;
-  border-radius: 3px;
-  cursor: pointer;
-  margin-top: 7px;
-}
-
-.plus-button {
-  background-color: black;
-}
-
-.minus-button {
-  background-color: red;
-}
-
-.duration-input {
-  width: 30px;
-  padding: 5px;
-  font-size: 1.3em;
-  border-radius: 3px;
-  margin: 2px;
-}
-
-.title {
-    font-size: 1.5em;
-}
-
- /* t2 === TITLE 2 */
-.t2 {
-  color: red;
-}
-
-/* DURATION 1 (SESSION) */
-#d1 {
-  border: 1.5px solid black;
-  padding-right: 10px;
-}
+function updateInnerHTML(){
+  if(currentlyRunning === true){
  
-/* DURATION 2 (BREAK) */
-#d2 {
-  border: 1.5px solid red;
-  color: red;
+ // adds extra zero when seconds is under 10
+ if(currentSeconds < 10){
+   currentSeconds = "0" + currentSeconds;
+ }
+      document.getElementById("timer").innerHTML = currentMinutes + ":" + currentSeconds;
+    
+    return false;
+  }
+  
+  document.getElementById("d1").innerHTML = sessionDefault;
+  document.getElementById("d2").innerHTML = breakDefault;
+  document.getElementById("timer").innerHTML = sessionDefault + ":00";
+  
 }
 
-.clear {
-  clear: both;
+// Timer Defaults
+var sessionDefault = 25;
+var breakDefault = 5;
+var secondsDefault = 0;
+var currentlyRunning = false;
+var onBreak = false;
+var currentMinutes;
+var currentSeconds = 0;
+var countDownTimer;
+updateInnerHTML();
+
+// addTime Function
+function addTime(buttonClicked) {
+  if(currentlyRunning === true){
+    return false;
+  }
+  
+  if(buttonClicked === "sPlus"){
+    sessionDefault++;
+  } else if(buttonClicked === "dPlus"){
+    breakDefault++;
+  }
+updateInnerHTML();
+}// addTime function() end
+
+// minusTime Function
+function minusTime(buttonClicked) { 
+  if(currentlyRunning === true){
+    return false;
+  }
+  
+  if(buttonClicked === "sMinus"){
+    if(sessionDefault === 1){
+      return false;
+    }
+    sessionDefault--;
+  }else if(buttonClicked === "dMinus"){
+    if(breakDefault === 1){
+      return false;
+    }
+    breakDefault--;
+  }
+updateInnerHTML();
+}// minusTime function() end
+
+var countDown = () => {
+  
+ countDownTimer = setInterval(function(){
+      currentSeconds--;
+      updateInnerHTML();
+    
+      if(currentSeconds == 00 && currentMinutes > 0){
+      currentMinutes--;
+      currentSeconds += 59; 
+    } else if ( currentMinutes == 0 && currentSeconds == 00 && onBreak === false){
+      alert("Time for a break!");
+      onBreak = true;
+      document.getElementById("timer").style.color = "red";
+      currentMinutes += breakDefault;
+      currentMinutes--;
+      currentSeconds += 59;  
+    } else if ( currentMinutes == 0 && currentSeconds == 00 && onBreak == true){
+      alert("Get back to work! Hit the Reset Button to start another session");
+      clearInterval(countDownTimer);
+    }
+  }, 1000)//setInterval bracket end
+  
+}// countDown() bracket end
+
+// Start button function
+function start(){
+  if(currentlyRunning === true){
+    return false;
+  } else{
+    currentlyRunning = true;
+    
+    currentMinutes = sessionDefault;
+    currentMinutes--;
+    
+    if(currentSeconds == 0){
+      currentSeconds += 59; 
+    } else {
+      currentSeconds = currentSeconds;
+    }
+    
+    updateInnerHTML();
+    countDown();
+  }
 }
 
-/* FALCONS DIV */
-.falcons-logo {
-  text-align: center;
-  margin-top: 5px;
+//pause button function ()
+function pause(){
+  currentlyRunning = false;       
+  clearInterval(countDownTimer);
+  
 }
 
-#falcons-img {
-  width: 150px;
-}
-
-/* TIMER DIV */
-#timer {
-  font-size: 3.5em;
-  text-align: center;
-  margin: 0;
-}
-
-/* CONTROL-BUTTONS */
-.control-buttons {
-  padding-left: 8px;
-  margin-top: 5px;
-  overflow: hidden;
-  font-size: 1.5em;
-}
-
-.start, .pause, .reset {
-  float: left;
-  padding: 7px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  color: white;
-  margin: 5px;
-}
-
-.start{
-  background-color: black;
-}
-.pause{
-  background-color: grey;
-}
-.reset{
-  background-color: red;
+  //reset button function
+function reset(){
+  currentlyRunning = false;
+  
+  sessionDefault = 25;
+  breakDefault = 5;
+  currentMinutes = sessionDefault;
+  currentSeconds = 59;
+  clearInterval(countDownTimer);
+ 
+  updateInnerHTML();
+  
 }
