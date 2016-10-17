@@ -22,7 +22,7 @@ body {
   border-radius: 10px;
 }
 
-.container h1 {
+h1 {
   text-align: center;
   padding-top: 10px;
   margin: 0;
