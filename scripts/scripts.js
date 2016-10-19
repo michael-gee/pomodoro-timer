@@ -17,14 +17,14 @@ function updateInnerHTML(){
 }
 
 // Timer Defaults
-var sessionDefault = 25;
-var breakDefault = 5;
-var secondsDefault = 0;
-var currentlyRunning = false;
-var onBreak = false;
-var currentMinutes;
-var currentSeconds = 0;
-var countDownTimer;
+var sessionDefault = 25,
+    breakDefault = 5,
+    secondsDefault = 0,
+    currentlyRunning = false,
+    onBreak = false,
+    currentMinutes,
+    currentSeconds = 0,
+    countDownTimer;
 updateInnerHTML();
 
 // addTime Function
