@@ -79,6 +79,7 @@ var countDown = () => {
       currentSeconds += 59;  
     } else if ( currentMinutes == 0 && currentSeconds == 00 && onBreak == true){
       alert("Get back to work! Hit the Reset Button to start another session");
+       document.getElementById("timer").style.color = "black";
       clearInterval(countDownTimer);
     }
   }, 1000)//setInterval bracket end
@@ -121,6 +122,7 @@ function reset(){
   breakDefault = 5;
   currentMinutes = sessionDefault;
   currentSeconds = 59;
+  document.getElementById("timer").style.color = "black";
   clearInterval(countDownTimer);
  
   updateInnerHTML();
